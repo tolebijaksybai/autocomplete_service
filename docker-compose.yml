@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    volumes:
+      - ./:/var/www/back/
+      - ./_docker/local/nginx/conf.d/:/etc/nginx/conf.d
+    restart: always
+    tty: true
+    ports:
+      - "8879:80"
+    container_name: autocomplete_service_nginx
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: _docker/local/app/Dockerfile
+    volumes:
+      - ./:/var/www/back
+    container_name: autocomplete_service_app
+#    restart: always
