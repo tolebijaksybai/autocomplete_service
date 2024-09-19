@@ -11,7 +11,7 @@ RUN apt-get update -q && apt-get install -yq --no-install-recommends \
          unzip \
          libxml2-dev \
          libzip-dev \
-          libonig-dev \
+         libonig-dev \
          locales \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -37,6 +37,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin
 
 COPY _docker/local/app/php.ini /usr/local/etc/php/conf.d/local.ini
+COPY _docker/local/app/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 COPY _docker/local/entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
